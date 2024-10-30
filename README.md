@@ -14,3 +14,11 @@
 5. `cd ..` come out of build directory.
 5. `.\build\Release\imagesegmentation.exe` run the file.
 5. `cmake --build . --config Release --target clean` if you want to clean the build directory.
+## Building and running in Linux
+1. `mkdir build`
+2. `cd build`
+3. `cmake -DCMAKE_BUILD_TYPE=Release ..`
+4. `cmake --build .`
+5. `find . -type f -name "imagesegmentation"`
+6. `cd ..`
+7. `./build/imagesegmentation`

@@ -3,6 +3,7 @@
 # isntalling dependencies for linux system
 install_linux_dependencies() {
     sudo apt update
+    sudo apt-get install g++
     sudo apt install -y cmake libopencv-dev
 }
 
