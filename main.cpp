@@ -29,6 +29,7 @@ public:
         // Normalize membership matrix
         normalize(U, U, 1, 0, NORM_L1, -1, Mat());
 
+        // do the following step for the given number of iterations or until convergence
         for (int iter = 0; iter < maxIterations; ++iter) {
             // Compute cluster centers
             vector<Vec3f> clusterCenters(numClusters, Vec3f(0, 0, 0));
@@ -99,8 +100,8 @@ private:
 
 int main() {
     // Specify the input and output directories
-    string inputDir = "C:/Users/admin/Desktop/IIT kanpur/Thesis/Image Segmentation/data/";
-    string outputDir = "C:/Users/admin/Desktop/IIT kanpur/Thesis/Image Segmentation/segmented_output/";
+    string inputDir = "data/";
+    string outputDir = "segmented_output/";
 
     // Ensure the output directory exists
     if (!fs::exists(outputDir)) {
@@ -112,12 +113,13 @@ int main() {
 
     // Iterate through the files in the input directory
     for (const auto& entry : fs::directory_iterator(inputDir)) {
-        // Check if the file is an image (e.g., jpg, png, .jpeg)
+        // Check if the file is an image (e.g., jpg, .png, .jpeg)
         if (entry.path().extension() == ".jpg" || entry.path().extension() == ".png" || entry.path().extension() == ".jpeg") {
             string imagePath = entry.path().string();
             cout << "Processing image: " << imagePath << endl;
 
-            // Read the image
+            // Read the image pixels
+            // in privacy preserving we have to secret shares this pixels
             Mat img = imread(imagePath, IMREAD_COLOR);
 
             // Check if the image is loaded successfully
@@ -127,6 +129,7 @@ int main() {
             }
 
             // Convert image to floating point and normalize
+            // or we can secret share this normalized values
             img.convertTo(img, CV_32F);
             img /= 255.0;
 
